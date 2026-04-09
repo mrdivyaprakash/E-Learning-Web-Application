@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | CodexTiger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CodexTiger/CSS/style.css">
+</head>
+
+<body>
+
+<!-- Header -->
+<div id="header"></div>
+
+<main class="page-content">
+
+    <section class="auth-section">
+        <div class="auth-card">
+
+            <h2>Track Your Profile</h2>
+            <p>Login to see your progress 🐯</p>
+
+            <!-- ERROR MESSAGE -->
+             <b> <div  id="error-msg" class="error-msg" style="display:none;"></div></b>
+           
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+                
+                <p class="forgot-link">
+    <a href="forgot-password.html">Forgot Password?</a>
+</p>
+
+                <button type="submit" class="btn">Login</button>
+
+            </form>
+
+            <p class="auth-link">
+                New to CodexTiger?
+                <a href="register.html">Create Account</a>
+            </p>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<div id="footer"></div>
+
+<script>
+/* Load Header */
+fetch("header.html")
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("header").innerHTML = data;
+    });
+
+/* Load Footer */
+fetch("footer.html")
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("footer").innerHTML = data;
+    });
+
+</script>
+   
+  <script src="/CodexTiger/JS/login.js"></script>
+
+
+
+</body>
+</html>

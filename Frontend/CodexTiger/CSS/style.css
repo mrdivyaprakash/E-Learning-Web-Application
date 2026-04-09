@@ -1,0 +1,461 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+.page-content {
+    flex: 1; /* PUSHES FOOTER DOWN */
+}
+
+/* NAVBAR */
+.navbar {
+	/* to fix the header menu */
+	position: relative;
+	
+	/* only position */
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    align-items: center;
+    background: #111;
+    color: #fff;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+}
+
+.navbar ul li {
+    margin-left: 20px;
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+#menu-toggle {
+    display: none;
+}
+.menu-icon {
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: #fff;
+}
+.nav-menu ul {
+    display: flex;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: #f4f4f4;
+}
+
+.hero h1 {
+   font-size: clamp(24px, 5vw, 40px);
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 25px;
+    background: #111;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* NEW: reusable container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* UPDATED */
+.features {
+    padding: 50px 0;
+   /* border: 1px solid red;*/
+}
+
+/* NEW */
+.features-wrapper {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap; /* VERY IMPORTANT */
+   /* border: 1px solid green; */
+}
+
+/* UPDATED */
+.feature-card {
+    flex: 1;                 /* replaces fixed width */
+    min-width: 250px;        /* prevents too small */
+    max-width: 300px;        /* prevents too large */
+    padding: 20px;
+    border: 1px solid #ddd;
+    text-align: center;
+    
+     cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-link {
+    display: block;              /* fills card */
+    height: 100%;
+    text-decoration: none;
+    color: inherit;              /* keep text color */
+}
+/* HOVER EFFECT */
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: #111;
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 15px;
+    background: #111;
+    color: #fff;
+    margin-top: auto;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+   /* .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }*/
+     .navbar {
+        flex-direction: row;
+        padding: 15px;
+    }
+     .menu-icon {
+        display: block;
+        /* to fix the header menu */
+        font-size: 26px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+    .nav-menu {
+       position: absolute;
+        top: 100%;              /* below header */
+        right: 0px;
+        width: 100px;
+        background:rgba(0,0,0,0.3);
+        border-radius: 6px;
+        display: none;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        z-index: 1000;
+    } /* STACK MENU ITEMS */
+    .nav-menu ul {
+        flex-direction: column;
+        background:transparent;
+       padding: 0px;
+    }
+      .nav-menu ul li {
+       
+         margin: 0;
+    }
+
+ .nav-menu ul li a {
+        display: block;
+        padding: 12px 20px;
+        text-align: right;
+        font-weight: bold;
+    }
+
+  
+    
+    /* WHEN MENU ICON CLICKED */
+    #menu-toggle:checked + .menu-icon + .nav-menu {
+        display: block;
+    }
+
+    .hero {
+        padding: 60px 15px;
+    }
+    
+     .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+
+
+
+
+/* =========================
+   AUTH (LOGIN / REGISTER)
+   ========================= */
+
+.auth-section {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 15px;
+    background: #f9f9f9;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.auth-card h2 {
+    margin-bottom: 10px;
+}
+
+.auth-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.auth-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-link a {
+    color: #111;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+small {
+    color: red;
+    font-size: 13px;
+}
+
+.error-msg {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+.forgot-link{
+    text-align:left;
+    margin: top 5px;
+}
+
+.forgot-link a{
+    font-size:14px;
+    color:#007bff;
+    text-decoration:none;
+}
+
+.forgot-link a:hover{
+    color: red;
+}
+/* tutorial page layout design starts*/
+
+/* body { margin:0; font-family: Arial; } */
+
+
+.Tutorial-container {
+    display:flex;
+    height:100%;
+}
+
+.Tutorial-sidebar {
+    width:20%;
+    background:#f4f4f4;
+    overflow-y:auto;
+    padding:15px;
+
+    
+}
+
+.Tutorial-content {
+    width:75%;
+    padding:20px;
+    
+}
+#topicTitle {
+    margin-bottom: 15px;
+    font-size: 28px;
+    
+}
+
+#topicContent {
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+.Tutorial-sidebar li {
+    cursor:pointer;
+    padding:8px;
+    border-bottom:1px solid #ccc;
+}
+
+.Tutorial-sidebar li:hover {
+    background:lab(83.2% 0.35 0.11);
+}
+
+.Tutorial-buttons button,
+.Tutorial-navBtns button {
+    padding:10px 20px;
+    margin:10px 10px 0 0;
+    cursor:pointer;
+}
+
+pre {
+    overflow-x: auto;
+}
+
+/* tutorial page layout design ends*/
+
+
+
+
+/* ===============================
+   TUTORIAL PAGE LAYOUT with Thymleaf
+   =============================== */
+
+
+.tutorial-layout {
+    display: flex;
+    min-height: 70vh;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+}
+
+/* LEFT SIDEBAR */
+.topics {
+    width: 250px;
+    border-right: 2px solid #000;
+    padding: 20px;
+}
+
+.topics h3 {
+    margin-bottom: 15px;
+}
+
+.topics ul {
+    list-style: none;
+}
+
+.topics ul li {
+    margin-bottom: 10px;
+}
+
+.topics ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.topics ul li a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+#topicList {
+    list-style-type: none;
+}
+
+/* RIGHT CONTENT */
+.content {
+    flex: 1;
+    padding: 30px;
+}
+
+.content h1 {
+    margin-bottom: 20px;
+}
+
+/* QUIZ + VIDEO */
+.content-actions {
+    margin: 30px 0;
+}
+
+/* PREV / NEXT */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+/* BUTTONS */
+.btn {
+    padding: 10px 20px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-outline {
+    padding: 10px 20px;
+    border: 1px solid #111;
+    text-decoration: none;
+    color: #111;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .tutorial-layout {
+        flex-direction: column;
+    }
+
+    .topics {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #000;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+
+

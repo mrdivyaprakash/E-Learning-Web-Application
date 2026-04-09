@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | CodexTiger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CodexTiger/CSS/style.css">
+</head>
+
+<body>
+
+<!-- Header -->
+<div id="header"></div>
+
+<main class="page-content">
+
+    <section class="auth-section">
+        <div class="auth-card">
+
+            <h2>Create Your Account</h2>
+            <p>Join CodexTiger and start learning Java 🚀</p>
+
+            <div id="register-msg" class="error-msg" style="display:none;"></div>
+
+            <form id="registerForm">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" placeholder="Enter your name" autocomplete="off">
+                    <small class="error-msg" id="nameError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Enter your email" autocomplete="off">
+                     <small class="error-msg" id="emailError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Create password">
+                    <small class="error-msg" id="passwordError"></small>
+                </div>
+
+                <button type="submit" class="btn">Register</button>
+
+            </form>
+
+            <p class="auth-link">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<div id="footer"></div>
+
+<script>
+    // Load Header
+    fetch("header.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("header").innerHTML = data;
+        });
+
+    // Load Footer
+    fetch("footer.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("footer").innerHTML = data;
+        });
+</script>
+<script src="/CodexTiger/JS/register.js"></script>
+
+
+</body>
+</html>

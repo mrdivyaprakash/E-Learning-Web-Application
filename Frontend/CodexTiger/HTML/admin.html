@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel - CodexTiger</title>
+    <link rel="stylesheet" href="/CodexTiger/CSS/style.css">
+</head>
+<body>
+
+<h1>CodexTiger Admin Panel</h1>
+
+<section>
+    <h2>Add Tutorial</h2>
+    <input type="text" id="tutorialTitle" placeholder="Tutorial Title">
+    <input type="text" id="tutorialSlug" placeholder="Slug (core-java)">
+    <button onclick="addTutorial()">Add Tutorial</button>
+</section>
+
+<section>
+    <h2>Add Topic</h2>
+    <input type="number" id="tutorialId" placeholder="Tutorial ID">
+    <input type="text" id="topicTitle" placeholder="Topic Title">
+    <textarea id="topicContent" placeholder="Topic Content"></textarea>
+    <input type="text" id="videoUrl" placeholder="YouTube URL">
+    <input type="number" id="topicOrder" placeholder="Topic Order">
+    <button onclick="addTopic()">Add Topic</button>
+</section>
+
+<section>
+    <h2>Add Quiz Question</h2>
+    <input type="number" id="topicIdQuiz" placeholder="Topic ID">
+    <textarea id="question" placeholder="Question"></textarea>
+    <input type="text" id="optionA" placeholder="Option A">
+    <input type="text" id="optionB" placeholder="Option B">
+    <input type="text" id="optionC" placeholder="Option C">
+    <input type="text" id="optionD" placeholder="Option D">
+    <input type="text" id="correctAnswer" placeholder="Correct Answer (A/B/C/D)">
+    <button onclick="addQuiz()">Add Question</button>
+</section>
+
+<script src="/CodexTiger/JS/admin.js"></script>
+
+</body>
+</html>
