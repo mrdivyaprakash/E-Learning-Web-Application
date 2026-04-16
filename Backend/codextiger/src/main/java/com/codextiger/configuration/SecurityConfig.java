@@ -59,6 +59,7 @@ public class SecurityConfig {
 	                .requestMatchers(
 	                		// public APIs
 	                    "/user/signup",
+	                    "/user/getAllUser",
 	                    "/user/login",
 	                    "/user/send-otp",
 	                    "/user/verify-otp",
@@ -68,6 +69,7 @@ public class SecurityConfig {
 	                    "/api/topic/{id}",
 	                    "/api/quiz/topic/{topicId}",
 	                    "/api/admin/topic/{tutorialId}"
+	                    
 	                   
 	                ).permitAll() 
 

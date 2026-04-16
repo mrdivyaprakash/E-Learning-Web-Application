@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.codextiger.exception.ResourceNotFoundException;
 import com.codextiger.model.Topic;
 import com.codextiger.model.Tutorial;
 import com.codextiger.repository.TopicRepository;
@@ -41,7 +42,7 @@ public class TopicServiceImpl implements TopicService{
 
 		@Override
 		public Topic getTopic(Long id) {
-			return topicRepository.findById(id).orElseThrow();
+			return topicRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Topic not found"));
 		}
 
 		
