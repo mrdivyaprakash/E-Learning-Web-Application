@@ -4,51 +4,140 @@ const slug = urlParams.get("slug");
 let topics = [];
 let currentIndex = 0;
 
+// async function loadTutorial() {
+
+//     if (!slug) {
+//         alert("No tutorial selected!");
+//         return;
+//     }
+
+//     const tutorialRes = await fetch(`http://localhost:8080/api/tutorial/${slug}`);
+
+//     if (!tutorialRes.ok) {
+//         alert("Tutorial not found");
+//         return;
+//     }
+
+//     const tutorial = await tutorialRes.json();
+
+//     const topicsRes = await fetch(`http://localhost:8080/api/topics/${tutorial.id}`);
+
+//     if (!topicsRes.ok) {
+//         alert("No topics found");
+//         return;
+//     }
+
+//     topics = await topicsRes.json();
+
+//     if (!Array.isArray(topics)) {
+//         console.error("Topics is not array:", topics);
+//         return;
+//     }
+
+//     const topicList = document.getElementById("topicList");
+//     topicList.innerHTML = "";
+
+//     topics.forEach((topic, index) => {
+//         const li = document.createElement("li");
+//         li.innerText = topic.title;
+//         li.onclick = () => loadTopic(index);
+//         topicList.appendChild(li);
+//     });
+
+//     if (topics.length > 0) {
+//         loadTopic(0);
+//     }
+// }
+
 async function loadTutorial() {
 
-    if (!slug) {
-        alert("No tutorial selected!");
-        return;
+    const serverError = document.getElementById("serverError");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const quizBtn = document.getElementById("quizBtn");
+    const videoBtn = document.getElementById("videoBtn");
+
+    try {
+
+        if (!slug) {
+            serverError.innerText = "No tutorial selected";
+            return;
+        }
+
+        const tutorialRes = await fetch(`http://localhost:8080/api/tutorial/${slug}`);
+
+        if (!tutorialRes.ok) {
+            serverError.innerText = "Tutorial not found";
+            hideButtons();
+            return;
+        }
+
+        const tutorial = await tutorialRes.json();
+
+        const topicsRes = await fetch(`http://localhost:8080/api/topics/${tutorial.id}`);
+
+        if (!topicsRes.ok) {
+            serverError.innerText = "Unable to load topics";
+            hideButtons();
+            return;
+        }
+
+        topics = await topicsRes.json();
+
+        if (!Array.isArray(topics)) {
+            serverError.innerText = "Invalid topic data";
+            hideButtons();
+            return;
+        }
+
+        const topicList = document.getElementById("topicList");
+        topicList.innerHTML = "";
+
+        topics.forEach((topic, index) => {
+
+            const li = document.createElement("li");
+            li.innerText = topic.title;
+            li.onclick = () => loadTopic(index);
+
+            topicList.appendChild(li);
+        });
+
+        if (topics.length > 0) {
+            showButtons();
+            loadTopic(0);
+        }
+
     }
+    catch (error) {
 
-    const tutorialRes = await fetch(`http://localhost:8080/api/tutorial/${slug}`);
+        console.error(error);
 
-    if (!tutorialRes.ok) {
-        alert("Tutorial not found");
-        return;
-    }
+        serverError.innerText = "Server unavailable. Please try again later.";
 
-    const tutorial = await tutorialRes.json();
+        hideButtons();
 
-    const topicsRes = await fetch(`http://localhost:8080/api/topics/${tutorial.id}`);
-
-    if (!topicsRes.ok) {
-        alert("No topics found");
-        return;
-    }
-
-    topics = await topicsRes.json();
-
-    if (!Array.isArray(topics)) {
-        console.error("Topics is not array:", topics);
-        return;
-    }
-
-    const topicList = document.getElementById("topicList");
-    topicList.innerHTML = "";
-
-    topics.forEach((topic, index) => {
-        const li = document.createElement("li");
-        li.innerText = topic.title;
-        li.onclick = () => loadTopic(index);
-        topicList.appendChild(li);
-    });
-
-    if (topics.length > 0) {
-        loadTopic(0);
+        setTimeout(() => {
+            serverError.innerText = "";
+        }, 3000);
     }
 }
 
+function hideButtons() {
+
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("prevBtn").style.display = "none";
+    document.getElementById("quizBtn").style.display = "none";
+    document.getElementById("videoBtn").style.display = "none";
+
+}
+function showButtons() {
+
+    document.getElementById("nextBtn").style.display = "inline-block";
+    document.getElementById("prevBtn").style.display = "inline-block";
+    document.getElementById("quizBtn").style.display = "inline-block";
+    document.getElementById("videoBtn").style.display = "inline-block";
+
+}
 
 function loadTopic(index) {
     currentIndex = index;

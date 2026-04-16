@@ -41,6 +41,20 @@ document.getElementById("registerForm")
     })
     .catch(errors => {
 
+ // 🔥 CASE 0: Network error (backend stopped)
+    if (errors instanceof TypeError) {
+
+        const serverError = document.getElementById("serverError");
+
+        serverError.innerText = "Something went wrong. Please try again later.";
+
+        setTimeout(() => {
+            serverError.innerText = "";
+        }, 3000);
+
+        return;
+    }
+
          // 🔥 CASE 1: Validation errors (field-wise)
     
         // Show field errors
@@ -61,10 +75,7 @@ document.getElementById("registerForm")
         document.getElementById("emailError").innerText = errors.message;
     }
 
-    // 🔥 Fallback
-    else {
-        alert("Something went wrong");
-    }
+   
 
 
     });
