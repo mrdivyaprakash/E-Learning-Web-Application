@@ -2,8 +2,9 @@ package com.codextiger.serviceimpl;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.codextiger.exception.ResourceNotFoundException;
@@ -23,6 +24,7 @@ public class TopicServiceImpl implements TopicService{
 	    private TutorialRepository tutorialRepository;
 
 	    @Override
+	    @CacheEvict(value="topics", key="#tutorialId")
 	    public Topic saveTopic(Long tutorialId, Topic topic) {
 
 	        Tutorial tutorial = tutorialRepository.findById(tutorialId)
@@ -33,6 +35,7 @@ public class TopicServiceImpl implements TopicService{
 	    }
 
 	    @Override
+	    @Cacheable(value="topics", key="#tutorialId")
 	    public List<Topic> getTopicsByTutorial(Long tutorialId) {
 	        return topicRepository.findAll()
 	                .stream()
@@ -41,6 +44,7 @@ public class TopicServiceImpl implements TopicService{
 	    }
 
 		@Override
+		@Cacheable(value="topic", key="#id")
 		public Topic getTopic(Long id) {
 			return topicRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Topic not found"));
 		}

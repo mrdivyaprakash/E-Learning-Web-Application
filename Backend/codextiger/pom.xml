@@ -91,6 +91,11 @@
     <version>8.10.1</version>
 </dependency>
     
+    <!-- Cache in memory-->
+    <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-cache</artifactId>
+</dependency>
     
 	</dependencies>
 

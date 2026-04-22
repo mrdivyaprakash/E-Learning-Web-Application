@@ -3,6 +3,8 @@ package com.codextiger.serviceimpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.codextiger.model.QuizQuestion;
@@ -21,6 +23,7 @@ public class QuizServiceImpl implements QuizService {
     private TopicRepository topicRepository;
 
     @Override
+    @CacheEvict(value="quiz", key="#topicId")
     public QuizQuestion saveQuestion(Long topicId, QuizQuestion question) {
 
         Topic topic = topicRepository.findById(topicId)
@@ -31,6 +34,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
 	@Override
+	@Cacheable(value="quiz", key="#id")
 	public List<QuizQuestion> getQuiz(long id) {
 		return quizRepository.findByTopicId(id);
 	}

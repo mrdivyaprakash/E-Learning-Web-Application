@@ -2,7 +2,10 @@ package com.codextiger.serviceimpl;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.codextiger.model.Tutorial;
@@ -19,7 +22,11 @@ public class TutorialServiceImpl implements TutorialService {
 //	    private TopicRepository topicRepository;
 
 	    @Override
+	    @Cacheable(value = "tutorials", key="#slug")
 	    public Tutorial getTutorialBySlug(String slug) {
+	    	
+//	    	to test cache is working or not 
+	    	System.out.println("Fetching tutorial from DATABASE...");
 	        return tutorialRepository.findBySlug(slug)
 	                .orElseThrow(() -> new RuntimeException("Tutorial not found"));
 	    }
@@ -30,6 +37,7 @@ public class TutorialServiceImpl implements TutorialService {
 //	    }
 	
 	    @Override
+	    @CacheEvict(value="tutorials", key="#tutorial.slug")
 	    public Tutorial saveTutorial(Tutorial tutorial) {
 	        return tutorialRepository.save(tutorial);
 	    }
