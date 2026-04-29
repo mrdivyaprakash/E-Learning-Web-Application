@@ -1,6 +1,7 @@
 package com.codextiger.controller;
 
 import java.util.List;
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codextiger.configuration.JwtUtil;
 import com.codextiger.dto.ForgotPWResponse;
 import com.codextiger.dto.LoginResponse;
 import com.codextiger.dto.PwResetRequest;
@@ -29,6 +31,9 @@ import jakarta.validation.Valid;
 
 public class UserController {
 
+	@Autowired
+	private JwtUtil jwtUtil;
+	
 	@Autowired
 	private final UserService userService;
 	
@@ -61,9 +66,10 @@ public class UserController {
 		
 		if(optUser.isPresent()) {
 			User savedUser=optUser.get();
+			String token = jwtUtil.generateToken(savedUser.getEmail());
 			LoginResponse lr =new LoginResponse(savedUser.getName(), savedUser.getEmail());
 		
-			Response response=new Response("Success", lr);
+			Response response=new Response("Success", Map.of("token", token, "user", lr));
 			return ResponseEntity.ok(response);
 		}
 		else {

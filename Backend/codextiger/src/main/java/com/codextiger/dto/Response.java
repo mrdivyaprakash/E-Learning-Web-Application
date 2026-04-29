@@ -1,14 +1,16 @@
 package com.codextiger.dto;
 
+import java.util.Map;
+
 public class Response {
 	private String message;
-	private LoginResponse user;
+	 private Object data;
 	
-	
-	public Response(String message, LoginResponse user) {
+	public Response(String message, Object data) {
 		this.message = message;
-		this.user = user;
+		this.data = data;
 	}
+	
 	
 	public String getMessage() {
 		return message;
@@ -16,12 +18,18 @@ public class Response {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public LoginResponse getUser() {
-		return user;
+
+
+	public Object getData() {
+		return data;
 	}
-	public void setUser(LoginResponse user) {
-		this.user = user;
+
+
+	public void setData(Object data) {
+		this.data = data;
 	}
+	
+
 	
 	
 
