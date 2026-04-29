@@ -1,25 +1,31 @@
-function updateAuth() {
+function updateAuth(){
 
     const authLink = document.getElementById("auth-link");
-    const user = JSON.parse(localStorage.getItem("user"));
 
-    if (!authLink) return; // safety check
+    const token = localStorage.getItem("token");
+    const name = localStorage.getItem("userName");
 
-    if (user) {
+    if(token){
 
-        authLink.innerHTML = `
-            <a href="#" id="logout-btn">Logout</a>
-        `;
+        authLink.innerHTML =
+        `<a href="#" onclick="logout()">Logout</a>`;
 
-        document.getElementById("logout-btn").addEventListener("click", function (e) {
-            e.preventDefault();
+    }else{
 
-            localStorage.removeItem("user");
-            window.location.href = "index.html";
-        });
+        authLink.innerHTML =
+        `<a href="login.html">Login</a>`;
 
-    } else {
-
-        authLink.innerHTML = `<a href="login.html">Log in</a>`;
     }
 }
+
+function logout(){
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    sessionStorage.clear();
+
+    
+
+    window.location.href="login.html";
+}
+

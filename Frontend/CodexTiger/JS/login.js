@@ -1,3 +1,5 @@
+
+
 document.getElementById("loginForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -14,19 +16,29 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
             password: password
         })
     })
-    .then(res => {
-        return res.text();   // 👈 important change
-    })
-    .then(text => {
-        console.log("Raw Response:", text);
 
-        const data = JSON.parse(text);  // convert manually
+// .then(res => { return res.text(); // 👈 important change
+//     }) 
+//  .then(text => { console.log("Raw Response:", text); 
+//     const data = JSON.parse(text); // convert manually if
+
+
+    .then(res => res.json())
+    .then(data => {
+        console.log(" Response:", data);
+
+        
 
         if (data.message === "Success") {
-            console.log(data);
+            const token = data.data.token;
+        const user = data.data.user;
+
+            // store token
+        localStorage.setItem("token", token);
+
+        // store user
+        localStorage.setItem("user", JSON.stringify(user)); 
            
-             // ✅ store user
-    localStorage.setItem("user", JSON.stringify(data.user));
 // alert("Login Successfull"+data.user.name)
             window.location.href = "index.html";
         } else {
@@ -45,12 +57,16 @@ document.getElementById("password").value = "";
         }
     })
     .catch(error => {
-        console.log("Error:", error);
-        document.getElementById("error-msg").innerText = "Server connection failed";
 
-        // error message for 3 seconds
-         setTimeout(() => {
+    console.log("Error:", error);
+
+    const errorDiv = document.getElementById("error-msg");
+
+    errorDiv.style.display = "block";
+    errorDiv.innerText = "Server connection failed";
+
+    setTimeout(() => {
         errorDiv.style.display = "none";
     }, 3000);
-    });
+});
 });

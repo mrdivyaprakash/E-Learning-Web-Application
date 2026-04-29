@@ -1,6 +1,19 @@
 const urlParams = new URLSearchParams(window.location.search);
 const slug = urlParams.get("slug");
 
+// added to store current tutorial in session management
+if (slug) {
+
+    sessionStorage.setItem("currentTutorial", slug);
+
+} else {
+
+    slug = sessionStorage.getItem("currentTutorial");
+
+}
+
+// till here 
+
 let topics = [];
 let currentIndex = 0;
 
@@ -102,10 +115,32 @@ async function loadTutorial() {
             topicList.appendChild(li);
         });
 
-        if (topics.length > 0) {
-            showButtons();
-            loadTopic(0);
-        }
+        // if (topics.length > 0) {
+        //     showButtons();
+        //     loadTopic(0);
+        // }
+
+        // for topic store in session management
+if (topics.length > 0) {
+
+    showButtons();
+
+    const savedIndex =
+        sessionStorage.getItem("currentTopicIndex");
+
+    if (savedIndex !== null) {
+
+        loadTopic(parseInt(savedIndex));
+
+    } else {
+
+        loadTopic(0);
+
+    }
+}
+// till here
+
+
 
     }
     catch (error) {
@@ -141,13 +176,24 @@ function showButtons() {
 
 function loadTopic(index) {
     currentIndex = index;
+
+    // added to store current topic in session management
+    sessionStorage.setItem("currentTopicIndex", index);
+    // till here
     const topic = topics[index];
 
     document.getElementById("topicTitle").innerText = topic.title;
     document.getElementById("topicContent").innerHTML = topic.content;
 
-    document.getElementById("quizBtn").onclick =
-        () => window.location.href = `quiz.html?topicId=${topic.id}`;
+    // added for quiz to know from which topic user came
+  document.getElementById("quizBtn").onclick = () => {
+
+    sessionStorage.setItem("currentQuizTopic", topic.id);
+
+    window.location.href = `quiz.html?topicId=${topic.id}`;
+
+};
+// till here
 
     document.getElementById("videoBtn").onclick = () => {
     if (topic.videoUrl) {
